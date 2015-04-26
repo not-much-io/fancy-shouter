@@ -16,8 +16,8 @@
                   [:i {:class "mdi-content-send right"}]])])
 
 (defn display-shouts [shouts]
-  [:div {:class "collection"}
-   [:ul
+  [:div 
+   [:ul {:class "collection"}
     (map
      (fn [shout] [:li {:class "collection-item"} (h (:body shout))])
      shouts)]])
