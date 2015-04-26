@@ -3,21 +3,32 @@
             [hiccup.core :refer [h]]
             [hiccup.form :as form]))
 
+(form/submit-button "Name")
+
 (defn shout-form []
-  [:div {:id "shout-form" :class "sixteen columns alpha omega"}
+  [:div {:id "shout-form" :class "input-field col s12"}
    (form/form-to [:post "/"]
                  (form/label "shout" "What do you want to SHOUT?")
-                 (form/text-area "shout")
-                 (form/submit-button "SHOUT!"))])
+                 (form/text-field {:class "input-field"} "shout")
+                 [:button {:class "btn waves-effect waves-light" :type "submit"
+                           :name "action"}
+                  "Submit"
+                  [:i {:class "mdi-content-send right"}]])])
 
 (defn display-shouts [shouts]
-  [:div {:class "shouts sixteen columns alpha omega"}
-   (map
-    (fn [shout] [:h2 {:class "shout"} (h (:body shout))])
-    shouts)])
+  [:div {:class "collection"}
+   [:ul
+    (map
+     (fn [shout] [:li {:class "collection-item"} (h (:body shout))])
+     shouts)]])
 
 (defn index [shouts]
   (layout/common "SHOUTER"
                  (shout-form)
                  [:div {:class "clear"}]
                  (display-shouts shouts)))
+
+
+
+
+

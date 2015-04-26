@@ -1,22 +1,33 @@
 (ns shouter.views.layout
   (:require [hiccup.page :as h]))
 
-(defn common [title & body]
-  (h/html5
-   [:head
-    [:meta {:charset "utf-8"}]
-    [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge,chrome=1"}]
-    [:meta {:name "viewport" :content
-            "width=device-width, initial-scale=1, maximum-scale=1"}]
-    [:title title]
-    (h/include-css "/stylesheets/base.css"
-                 "/stylesheets/skeleton.css"
-                 "/stylesheets/screen.css")
-    (h/include-css "http://fonts.googleapis.com/css?family=Sigmar+One&v1")]
-   [:body
-    [:div {:id "header"}
-     [:h1 {:class "container"} "SHOUTER"]]
-    [:div {:id "content" :class "container"} body]]))
+(defn common [title & body] 
+  (h/html5 [:html {:lang "en"} 
+            [:head  
+             [:meta {:http-equiv "Content-Type", :content "text/html; charset=UTF-8"}]  
+             [:meta {:name "viewport", :content "width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"}]  
+             [:title title] 
+             [:link {:href "css/materialize.css", :type "text/css", :rel "stylesheet", :media "screen,projection"}]]  
+            [:body  
+             [:nav {:class "light-blue lighten-1", :role "navigation"}  
+              [:div {:class "nav-wrapper container"} 
+               [:a {:id "logo-container", :href "#", :class "brand-logo"} 
+                [:i {:class "mdi-av-volume-up"}]]  
+               [:ul {:class "right hide-on-med-and-down"}  
+                ;; [:li 
+                ;;  [:a {:href "#"} "Navbar Link"]] 
+                ]  
+               [:ul {:id "nav-mobile", :class "side-nav"}  
+                ;; [:li 
+                ;;  [:a {:href "#"} "Navbar Link"]]
+                ]  
+               [:a {:href "#", :data-activates "nav-mobile", :class "button-collapse"} 
+                [:i {:class "mdi-navigation-menu"}]] ] ]  
+             [:div {:class "section no-pad-bot", :id "index-banner"}  
+              [:div {:class "container"} body]]    
+             [:script {:src "https://code.jquery.com/jquery-2.1.1.min.js"}]  
+             [:script {:src "js/materialize.js"}]  
+             [:script {:src "js/init.js"}]]]))
 
 (defn four-oh-four []
   (common "Page Not Found"
