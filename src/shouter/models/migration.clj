@@ -1,12 +1,24 @@
 (ns shouter.models.migration
   (:require [clojure.java.jdbc :as sql]
-            [shouter.models.shout :as shout]))
+            [shouter.models.shout :as shout]
+            [yesql.core :refer [defquery]]))
+
+(defquery is-migrated "is-migrated.sql")
+(defquery create-shouts-table "create-shouts-table.sql")
 
 (defn migrated? []
-  (-> (sql/query shout/spec
-                 [(str "select count(*) from information_schema.tables "
-                       "where table_name='shouts'")])
-      first :count pos?))
+  (-> (is-migrated shout/spec)
+      first
+      :count
+      pos?))
+
+
+(defn migrate []
+  (when (not (migrated?))
+    (print "Creating database structure...") (flush)
+    (create-shouts-table shout/spec)
+    (println " done")))
+
 
 (defn migrate []
   (when (not (migrated?))

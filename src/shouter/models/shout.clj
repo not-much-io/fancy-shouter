@@ -1,11 +1,15 @@
 (ns shouter.models.shout
-  (:require [clojure.java.jdbc :as sql]))
+  (:require [clojure.java.jdbc :as sql]
+            [yesql.core :refer [defquery]]))
 
 (def spec (or (System/getenv "DATABASE_URL")
               "postgresql://localhost:5432/shouter"))
 
+(defquery shouts-by-id "shouts-by-id.sql")
+(defquery insert-shout! "insert-shout.sql")
+
 (defn all []
-  (into [] (sql/query spec ["select * from shouts order by id desc"])))
+  (shouts-by-id spec))
 
 (defn create [shout]
-  (sql/insert! spec :shouts [:body] [shout]))
+  (insert-shout! spec shout))
