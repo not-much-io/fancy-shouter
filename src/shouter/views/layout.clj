@@ -13,21 +13,14 @@
               [:div {:class "nav-wrapper container"} 
                [:a {:id "logo-container", :href "#", :class "brand-logo"} 
                 [:i {:class "mdi-av-volume-up"}]]  
-               [:ul {:class "right hide-on-med-and-down"}  
-                ;; [:li 
-                ;;  [:a {:href "#"} "Navbar Link"]] 
-                ]  
-               [:ul {:id "nav-mobile", :class "side-nav"}  
-                ;; [:li 
-                ;;  [:a {:href "#"} "Navbar Link"]]
-                ]  
+               [:ul {:class "right hide-on-med-and-down"}]  
+               [:ul {:id "nav-mobile", :class "side-nav"}]  
                [:a {:href "#", :data-activates "nav-mobile", :class "button-collapse"} 
                 [:i {:class "mdi-navigation-menu"}]] ] ]  
              [:div {:class "section no-pad-bot", :id "index-banner"}  
               [:div {:class "container"} body]]    
              [:script {:src "https://code.jquery.com/jquery-2.1.1.min.js"}]  
-             [:script {:src "js/materialize.js"}]  
-             [:script {:src "js/init.js"}]]]))
+             [:script {:src "js/materialize.js"}]]]))
 
 (defn four-oh-four []
   (common "Page Not Found"
